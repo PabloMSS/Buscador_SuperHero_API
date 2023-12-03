@@ -91,6 +91,7 @@
                         android:layout_marginHorizontal="4dp"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:maxLines="1"
                         android:text="Inteligencia"/>
 
                     <TextView
@@ -99,6 +100,7 @@
                         android:layout_marginHorizontal="4dp"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:maxLines="1"
                         android:text="Fuerza"/>
 
                     <TextView
@@ -107,13 +109,14 @@
                         android:layout_marginHorizontal="4dp"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:maxLines="1"
                         android:text="Velocidad"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="16dp"
                     android:gravity="bottom"
                     android:orientation="horizontal">
 
@@ -123,7 +126,7 @@
                         android:layout_height="0dp"
                         android:layout_marginHorizontal="4dp"
                         android:layout_weight="1"
-                        android:background="@color/superhero_stat_durability"/>
+                        android:background="@color/superhero_stat_durability" />
 
                     <View
                         android:id="@+id/viewPower"
@@ -131,7 +134,7 @@
                         android:layout_height="0dp"
                         android:layout_marginHorizontal="4dp"
                         android:layout_weight="1"
-                        android:background="@color/superhero_stat_power"/>
+                        android:background="@color/superhero_stat_power" />
 
                     <View
                         android:id="@+id/viewCombat"
@@ -139,7 +142,7 @@
                         android:layout_height="0dp"
                         android:layout_marginHorizontal="4dp"
                         android:layout_weight="1"
-                        android:background="@color/superhero_stat_combat"/>
+                        android:background="@color/superhero_stat_combat" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -155,6 +158,7 @@
                         android:layout_marginHorizontal="4dp"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:maxLines="1"
                         android:text="Durabilidad"/>
 
                     <TextView
@@ -163,6 +167,7 @@
                         android:layout_marginHorizontal="4dp"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:maxLines="1"
                         android:text="Power"/>
 
                     <TextView
@@ -171,6 +176,7 @@
                         android:layout_marginHorizontal="4dp"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:maxLines="1"
                         android:text="Combate"/>
                 </LinearLayout>
             </LinearLayout>
