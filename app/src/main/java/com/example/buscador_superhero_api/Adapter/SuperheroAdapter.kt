@@ -4,11 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.buscador_superhero_api.R
-import com.example.buscador_superhero_api.SuperHeroDataResponse
-import com.example.buscador_superhero_api.SuperheroItemResponse
+import com.example.buscador_superhero_api.Models.SuperheroItemResponse
 import com.example.buscador_superhero_api.ViewHolder.SuperheroViewHolder
 
-class SuperheroAdapter(var superheroList: List<SuperheroItemResponse> = emptyList()) : RecyclerView.Adapter<SuperheroViewHolder>(){
+class SuperheroAdapter(var superheroList: List<SuperheroItemResponse> = emptyList(), private val onItemSelected:(String) -> Unit) : RecyclerView.Adapter<SuperheroViewHolder>(){
 
     fun updateList(superheroList: List<SuperheroItemResponse>){
         this.superheroList = superheroList
@@ -25,6 +24,6 @@ class SuperheroAdapter(var superheroList: List<SuperheroItemResponse> = emptyLis
     }
 
     override fun onBindViewHolder(viewHolder: SuperheroViewHolder, position: Int) {
-        viewHolder.bind(superheroList[position])
+        viewHolder.bind(superheroList[position], onItemSelected)
     }
 }

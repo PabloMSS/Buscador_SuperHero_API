@@ -1,4 +1,4 @@
-package com.example.buscador_superhero_api
+package com.example.buscador_superhero_api.Models
 
 import com.google.gson.annotations.SerializedName
 

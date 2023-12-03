@@ -1,5 +1,6 @@
 package com.example.buscador_superhero_api
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.buscador_superhero_api.Adapter.SuperheroAdapter
+import com.example.buscador_superhero_api.Models.SuperHeroDataResponse
 import com.example.buscador_superhero_api.databinding.ActivitySuperHeroBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +33,7 @@ class SuperHeroActivity : AppCompatActivity() {
     }
 
     fun initUI(){
-        adapter = SuperheroAdapter()
+        adapter = SuperheroAdapter(){ id -> navigateToDetail(id) }
         binding.rvSuperHero.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rvSuperHero.adapter = adapter
         binding.svSuperHero.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
@@ -75,5 +77,11 @@ class SuperHeroActivity : AppCompatActivity() {
             .build()
 
         return retrofit
+    }
+
+    fun navigateToDetail(id: String){
+        var intent = Intent(this, DetailSuperHeroActivity::class.java)
+        intent.putExtra(DetailSuperHeroActivity.Extra_Id, id)
+        startActivity(intent)
     }
 }
