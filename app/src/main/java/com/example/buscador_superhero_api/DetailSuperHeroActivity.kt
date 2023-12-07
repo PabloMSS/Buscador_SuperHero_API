@@ -59,6 +59,8 @@ class DetailSuperHeroActivity : AppCompatActivity() {
 
     fun createUI(superHero: SuperHeroDetailResponse){
         binding.tvSuperHeroName.text = superHero.name
+        binding.tvSuperHeroFullName.text = superHero.biography.fullName
+        binding.tvSuperHeroPublisher.text = superHero.biography.publisher
         Glide.with(this).load(superHero.image.url).into(binding.imgSuperheroDetail)
         prepareStats(superHero.powerstart)
     }

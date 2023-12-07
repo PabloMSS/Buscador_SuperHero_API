@@ -1,33 +1,43 @@
 package com.example.buscador_superhero_api
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.buscador_superhero_api.Adapter.SuperheroAdapter
 import com.example.buscador_superhero_api.Models.SuperHeroDataResponse
+import com.example.buscador_superhero_api.Models.SuperheroItemResponse
 import com.example.buscador_superhero_api.databinding.ActivitySuperHeroBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.ArrayList
+import kotlin.math.log
 
 class SuperHeroActivity : AppCompatActivity() {
 
-    private lateinit var  binding: ActivitySuperHeroBinding
+    private lateinit var binding: ActivitySuperHeroBinding
     private lateinit var retrofit: Retrofit
 
     private lateinit var adapter: SuperheroAdapter
+
+    var list_abecedario = ('A'..'Z').toList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySuperHeroBinding.inflate(layoutInflater)
         retrofit = getRetrofit()
+        getStartSuperHero()
         setContentView(binding.root)
         initUI()
     }
@@ -49,22 +59,48 @@ class SuperHeroActivity : AppCompatActivity() {
         })
     }
 
-    fun searchByName(query: String){
+    fun getStartSuperHero(){
         binding.progressBar.isVisible = true
-        //Para lanzar una corrutina y toda lo q se hace dentro de las llaves, se hace en un hilo secundario
         CoroutineScope(Dispatchers.IO).launch{
-            val myResponse: Response<SuperHeroDataResponse> = retrofit.create(ApiService::class.java).getSuperHeroes(query)
+            var letra_aleatorio = (0 until list_abecedario.size).random()
+            val myResponse: Response<SuperHeroDataResponse> = retrofit.create(ApiService::class.java).getSuperHeroes(list_abecedario[letra_aleatorio].toString())
             if(myResponse.isSuccessful){
                 var response = myResponse.body()
                 if (response != null){
-                    runOnUiThread { //Realiza la función en el Hilo Principal
+                    runOnUiThread {
                         adapter.updateList(response.superheroes)
                         binding.progressBar.isVisible = false
                     }
-                    Log.i("pablo", response.toString())
                 }
             }else{
-                Log.i("pablo", "No Funciona")
+                Log.i("prueba", "prueba")
+            }
+        }
+    }
+
+    fun searchByName(query: String){
+        binding.progressBar.isVisible = true
+        //Para lanzar una corrutina y toda lo que se hace dentro de las llaves, se hace en un hilo secundario
+        CoroutineScope(Dispatchers.IO).launch{
+            val myResponse: Response<SuperHeroDataResponse> = retrofit.create(ApiService::class.java).getSuperHeroes(query)
+            if(myResponse.isSuccessful){
+                var responseBody = myResponse.body()
+                Log.i("prueba", responseBody?.response.toString())
+                if (responseBody != null && !responseBody.response.equals("error")){
+                    runOnUiThread { //Realiza la función en el Hilo Principal
+                        adapter.updateList(responseBody.superheroes)
+                        binding.progressBar.isVisible = false
+                        binding.rvSuperHero.isVisible = true
+
+                    }
+                }else{
+                    runOnUiThread {
+                        var listEmply: List<SuperheroItemResponse> = listOf()
+                        adapter.updateList(listEmply)
+                        binding.progressBar.isVisible = false
+                        binding.rvSuperHero.isVisible = false
+                    }
+                }
             }
         }
     }

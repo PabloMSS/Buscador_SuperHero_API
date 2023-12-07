@@ -1,6 +1,7 @@
 package com.example.buscador_superhero_api.Models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class SuperHeroDataResponse(
     @SerializedName("response") val response: String,
