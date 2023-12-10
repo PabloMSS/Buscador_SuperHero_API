@@ -1,9 +1,11 @@
 package com.example.buscador_superhero_api
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -15,7 +17,10 @@ import com.example.buscador_superhero_api.Models.SuperheroItemResponse
 import com.example.buscador_superhero_api.databinding.ActivitySuperHeroBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -99,10 +104,22 @@ class SuperHeroActivity : AppCompatActivity() {
                         adapter.updateList(listEmply)
                         binding.progressBar.isVisible = false
                         binding.rvSuperHero.isVisible = false
+                        var dialog = showDialog()
+                        dialog.show()
+                        GlobalScope.launch(Dispatchers.Main) {
+                            delay(2500)
+                            dialog.dismiss()
+                        }
                     }
                 }
             }
         }
+    }
+
+    fun showDialog(): Dialog {
+        var dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_notfind)
+        return dialog
     }
 
     fun getRetrofit(): Retrofit{

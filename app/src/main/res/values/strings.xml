@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Buscador_SuperHero_API</string>
+    <string name="not_find_elements">No existe el SuperHero</string>
+    <string name="return_activity">Volver Atrás</string>
 </resources>

@@ -9,4 +9,6 @@
     <color name="superhero_stat_durability">#000000</color>
     <color name="superhero_stat_power">#F1D909</color>
     <color name="superhero_stat_combat">#FF9800</color>
+    <color name="dialog_not_find">#4BABEC</color>
+    <color name="btn_return">#EDB45F</color>
 </resources>

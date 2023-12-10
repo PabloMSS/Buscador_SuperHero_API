@@ -39,6 +39,9 @@ class DetailSuperHeroActivity : AppCompatActivity() {
     fun initUI(){
         var idSuperHero = getId()
         getSuperHero(idSuperHero)
+        binding.btnReturn.setOnClickListener {
+            finish()
+        }
     }
 
     fun getId(): String{
@@ -66,7 +69,6 @@ class DetailSuperHeroActivity : AppCompatActivity() {
     }
 
     fun prepareStats(powerstats: PowerStatsResponse){
-        Log.i("prueba", powerstats.intelligence)
         updateHeight(binding.viewIntelligence, powerstats.durability)
         updateHeight(binding.viewStrength, powerstats.strength)
         updateHeight(binding.viewSpeed, powerstats.speed)
@@ -77,7 +79,11 @@ class DetailSuperHeroActivity : AppCompatActivity() {
 
     fun updateHeight(view: View, valorHeight: String){
         val params = view.layoutParams
-        params.height = pxToDp(valorHeight.toFloat())
+        if(valorHeight.equals("null")){
+            params.height = pxToDp(1.toFloat())
+        }else{
+            params.height = pxToDp(valorHeight.toFloat())
+        }
         binding.viewCombat.layoutParams = params
     }
 
